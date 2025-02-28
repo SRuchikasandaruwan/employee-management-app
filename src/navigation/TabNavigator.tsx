@@ -6,6 +6,7 @@ import SettingsScreen from '../screens/User/SettingsScreen';
 import NotificationsScreen from '../screens/User/NotificationsScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import { StyleSheet, View, Text } from 'react-native';
+import HRHomeScreen from '../screens/HR/HRHomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +26,9 @@ const TabNavigator: React.FC = () => {
             iconName = 'mail';
           } else if (route.name === 'Profile') {
             iconName = 'user';
+          
+          } else if (route.name === 'HR') {
+            iconName = 'hash';
           }
 
           return (
@@ -52,6 +56,7 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen name="Settings" component={SettingsScreen} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="HR" component={HRHomeScreen} />
     </Tab.Navigator>
   );
 };

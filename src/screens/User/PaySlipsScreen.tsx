@@ -1,47 +1,101 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import CalendarComponent from "../../components/CalendarComponent";
+import { ScrollView } from "react-native-gesture-handler";
+
+const claimsData = [
+  {
+    id: "1",
+    title: "Business Trip",
+    location: "Street, 4883 Pretty View Lane, City, NEW YORK.",
+    date: "27 June - 25 July, 2021",
+    amount: "$1200.00",
+    status: "Reviewing",
+  },
+  {
+    id: "2",
+    title: "Business Conference",
+    location: "Street, 4883 Pretty View Lane, City, NEW YORK.",
+    date: "27 June - 25 July, 2021",
+    amount: "$1200.00",
+    status: "Not Submitted",
+  },
+  {
+    id: "3",
+    title: "Business Conference",
+    location: "Street, 4883 Pretty View Lane, City, NEW YORK.",
+    date: "27 June - 25 July, 2021",
+    amount: "$1200.00",
+    status: "Not Submitted",
+  },
+  {
+    id: "4",
+    title: "Business Trip",
+    location: "Street, 4883 Pretty View Lane, City, NEW YORK.",
+    date: "27 June - 25 July, 2021",
+    amount: "$1200.00",
+    status: "Reviewing",
+  },
+];
 
 const PaySlipsScreen: React.FC = () => {
   const navigation = useNavigation();
 
+  const renderClaimItem = ({ item }: { item: any }) => (
+    <View style={styles.claimCard}>
+      <Text style={styles.claimTitle}>{item.title}</Text>
+      <Text style={styles.claimLocation}>{item.location}</Text>
+      <Text style={styles.claimDate}>{item.date}</Text>
+      <Text style={styles.claimAmount}>{item.amount}</Text>
+      <View
+        style={[
+          styles.statusBadge,
+          {
+            backgroundColor:
+              item.status === "Reviewing" ? "#6371F1" : "#FFCCCC",
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.statusText,
+            { color: item.status === "Reviewing" ? "white" : "#FF3333" },
+          ]}
+        >
+          {item.status}
+        </Text>
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      {/* Illustration */}
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/Rectangle 5.png")} // Replace with your image
-          style={styles.image}
-          resizeMode="contain"
-        />
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Claims</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("NewExpensesScreen")}>
+          <Ionicons name="add" size={28} color="black" />
+        </TouchableOpacity>
       </View>
 
-      {/* Content Section */}
-      <LinearGradient colors={["#6371F1", "#3E43BB"]} style={styles.content}>
-        <Text style={styles.title}>Welcome to Employee Management System</Text>
-        <Text style={styles.description}>
-          Reference site about Lorem Ipsum, giving information origins as well as a random.
-        </Text>
-
-        {/* Get Started Button */}
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Login")} // Change screen name accordingly
-        >
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
-
-        {/* Pagination Dots */}
-        <View style={styles.dotsContainer}>
-          <View style={[styles.dot, styles.activeDot]} />
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-        </View>
-
-        {/* Progress Bar */}
-        {/* <View style={styles.progressBar} /> */}
-      </LinearGradient>
+      {/* Claims List */}
+      <FlatList
+        data={claimsData}
+        keyExtractor={(item) => item.id}
+        renderItem={renderClaimItem}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      />
     </View>
   );
 };
@@ -49,71 +103,62 @@ const PaySlipsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F8FF",
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  imageContainer: {
-    flex: 1.2,
-    justifyContent: "center",
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 20,
   },
-  image: {
-    width: 250,
-    height: 250,
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
   },
-  content: {
-    flex: 1,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    padding: 40,
-    alignItems: "center",
+  claimCard: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 3,
   },
-  title: {
+  claimTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#3E43BB",
+  },
+  claimLocation: {
+    fontSize: 14,
+    color: "#555",
+    marginVertical: 5,
+  },
+  claimDate: {
+    fontSize: 14,
+    color: "#FF7F50",
+    fontWeight: "bold",
+  },
+  claimAmount: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-    marginTop: 20,
+    color: "#E53935",
+    marginVertical: 5,
   },
-  description: {
+  statusBadge: {
+    alignSelf: "flex-start",
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+  },
+  statusText: {
     fontSize: 14,
-    color: "#ddd",
-    textAlign: "center",
-    marginVertical: 10,
-  },
-  button: {
-    backgroundColor: "#fff",
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 30,
-    marginTop: 20,
-  },
-  buttonText: {
-    
-    color: "#3E43BB",
     fontWeight: "bold",
-    fontSize: 16,
-  },
-  dotsContainer: {
-    flexDirection: "row",
-    marginTop: 100,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#fff",
-    marginHorizontal: 5,
-    opacity: 0.4,
-  },
-  activeDot: {
-    opacity: 1,
-  },
-  progressBar: {
-    width: "80%",
-    height: 5,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    marginTop: 10,
   },
 });
 

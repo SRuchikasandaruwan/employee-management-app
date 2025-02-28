@@ -15,6 +15,10 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import WelcomeScreen02 from './src/screens/WelcomeScreen02';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import NewExpensesScreen from './src/screens/User/NewExpensesScreen';
+import RequestsApplication from './src/screens/HR/RequestsApplication';
+import LeaveDetailsScreen from './src/screens/HR/LeaveDetailsScreen';
+import HRAttendanceScreen from './src/screens/HR/HRAttendance Screen';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +40,10 @@ const App = () => {
         <Stack.Screen name="ProjectTask" component={ProjectTaskScreen} />
         <Stack.Screen name="Team" component={TeamScreen} />
         <Stack.Screen name="NewLeaveRequestScreen" component={NewLeaveRequestScreen} />
+        <Stack.Screen name="NewExpensesScreen" component={NewExpensesScreen} />
+        <Stack.Screen name="RequestsApplication" component={RequestsApplication} />
+        <Stack.Screen name="LeaveDetailsScreen" component={LeaveDetailsScreen} />
+        <Stack.Screen name="HRAttendanceScreen" component={HRAttendanceScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </PaperProvider>

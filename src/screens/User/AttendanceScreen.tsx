@@ -1,152 +1,209 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
+import moment from "moment";
 
-const AttendanceScreen = () => {
-  const [leaveType, setLeaveType] = useState('Annual');
-  const [reason, setReason] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+const CalendarComponent = ({ onDateChange }) => {
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
+  const [calendarData, setCalendarData] = useState([]);
 
-  const onStartDateChange = (event: any, selectedDate: Date) => {
-    const currentDate = selectedDate || startDate;
-    setShowStartDatePicker(false);
-    setStartDate(currentDate);
-  };
+  useEffect(() => {
+    generateWeekDates();
+  }, []);
 
-  const onEndDateChange = (event: any, selectedDate: Date) => {
-    const currentDate = selectedDate || endDate;
-    setShowEndDatePicker(false);
-    setEndDate(currentDate);
+  const generateWeekDates = () => {
+    let week = [];
+    for (let i = -3; i <= 3; i++) {
+      let date = moment().add(i, "days");
+      week.push({
+        day: date.format("dd"),
+        date: date.format("DD"),
+        fullDate: date.format("YYYY-MM-DD"),
+      });
+    }
+    setCalendarData(week);
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>New Leave Request</Text>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Leave type</Text>
-        <TextInput
-          style={styles.input}
-          value={leaveType}
-          onChangeText={setLeaveType}
-          placeholder="Select leave type"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Reason</Text>
-        <TextInput
-          style={[styles.input, styles.multilineInput]}
-          value={reason}
-          onChangeText={setReason}
-          placeholder="Enter reason"
-          multiline
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Start Date</Text>
+    <FlatList
+      data={calendarData}
+      horizontal
+      keyExtractor={(item) => item.fullDate}
+      contentContainerStyle={{ alignItems: "center" }}
+      renderItem={({ item }) => (
         <TouchableOpacity
-          style={styles.dateButton}
-          onPress={() => setShowStartDatePicker(true)}
+          style={[
+            styles.dateItem,
+            selectedDate === item.fullDate && styles.selectedDateItem,
+          ]}
+          onPress={() => {
+            setSelectedDate(item.fullDate);
+            onDateChange(item.fullDate);
+          }}
         >
-          <Text style={styles.dateButtonText}>{startDate.toLocaleDateString()}</Text>
+          <Text
+            style={[
+              styles.dayText,
+              selectedDate === item.fullDate && styles.selectedDayText,
+            ]}
+          >
+            {item.day}
+          </Text>
+          <Text
+            style={[
+              styles.dateText,
+              selectedDate === item.fullDate && styles.selectedDateText,
+            ]}
+          >
+            {item.date}
+          </Text>
         </TouchableOpacity>
-        {showStartDatePicker && (
-          <DateTimePicker
-            value={startDate}
-            mode="date"
-            display="default"
-            onChange={onStartDateChange}
-          />
-        )}
+      )}
+    />
+  );
+};
+
+const AttendanceScreen = () => {
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
+
+  const attendanceData = [
+    { id: "1", checkIn: "09:30 AM", checkOut: "09:30 PM", location: "8 S Jefferson St, New Ulm, MN" },
+    { id: "2", checkIn: "09:30 AM", checkOut: "09:30 PM", location: "8 S Jefferson St, New Ulm, MN" },
+    { id: "3", checkIn: "09:30 AM", checkOut: "09:30 PM", location: "8 S Jefferson St, New Ulm, MN" },
+    { id: "4", checkIn: "09:30 AM", checkOut: "09:30 PM", location: "8 S Jefferson St, New Ulm, MN" },
+  ];
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Text style={styles.backArrow}>←</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Attendance</Text>
       </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>End Date</Text>
-        <TouchableOpacity
-          style={styles.dateButton}
-          onPress={() => setShowEndDatePicker(true)}
-        >
-          <Text style={styles.dateButtonText}>{endDate.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showEndDatePicker && (
-          <DateTimePicker
-            value={endDate}
-            mode="date"
-            display="default"
-            onChange={onEndDateChange}
-          />
-        )}
-      </View>
+      {/* Calendar Component */}
+      <CalendarComponent onDateChange={setSelectedDate} />
 
-      <TouchableOpacity style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>Send Request</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      {/* Attendance List */}
+      <FlatList
+        data={attendanceData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.attendanceCard}>
+            <Image style={styles.profileImage} source={{ uri: "https://via.placeholder.com/50" }} />
+            <View style={styles.details}>
+              <View style={styles.row}>
+                <Text style={styles.label}>Check-in</Text>
+                <Text style={styles.label}>Check-out</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.timeIn}>{item.checkIn}</Text>
+                <Text style={styles.timeOut}>{item.checkOut}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.locationText}>📍 {item.location}</Text>
+              </View>
+            </View>
+          </View>
+        )}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: 16,
-    backgroundColor: '#f5f5f5',
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 24,
-    textAlign: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
   },
-  inputContainer: {
-    marginBottom: 16,
+  backArrow: {
+    fontSize: 22,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  dateItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    alignItems: "center",
+  },
+  selectedDateItem: {
+    backgroundColor: "#1A4CD7",
+  },
+  dayText: {
+    fontSize: 14,
+    color: "#A0A3BD",
+  },
+  selectedDayText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#6B7280",
+  },
+  selectedDateText: {
+    color: "#FFFFFF",
+  },
+  attendanceCard: {
+    flexDirection: "row",
+    backgroundColor: "#F8F9FD",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginVertical: 5,
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#ddd",
+  },
+  details: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   label: {
+    fontSize: 14,
+    color: "#6B7280",
+  },
+  timeIn: {
     fontSize: 16,
-    marginBottom: 8,
-    color: '#333',
+    fontWeight: "bold",
+    color: "#1A4CD7",
   },
-  input: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
+  timeOut: {
     fontSize: 16,
+    fontWeight: "bold",
+    color: "#D71A1A",
   },
-  multilineInput: {
-    height: 100,
-    textAlignVertical: 'top',
-  },
-  dateButton: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
-  },
-  dateButtonText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  submitButton: {
-    backgroundColor: '#007bff',
-    borderRadius: 8,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 24,
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  locationText: {
+    fontSize: 14,
+    color: "#6B7280",
+    marginTop: 5,
   },
 });
-  
 
 export default AttendanceScreen;

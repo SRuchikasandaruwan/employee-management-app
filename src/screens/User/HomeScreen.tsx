@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet,Text, Touchable, TouchableOpacity } from 'react-native';
 import Header from '..//..//components/Slider';
 import Slider from '..//..//components/Slider';
 import CircularButton from '..//..//components/CircularButton';
@@ -7,6 +7,9 @@ import ActionButtons from '..//..//components/ActionButtons';
 import ProfileStatusView from '..//..//components/ProfileStatus';
 import AppStatusBar from '../../components/StatusBar';
 import TimeComponent from '../../components/TimeComponent';
+import { useNavigation } from "@react-navigation/native";
+
+
 
 const HomeScreen: React.FC = () => {
   return (
@@ -18,6 +21,7 @@ const HomeScreen: React.FC = () => {
       <TimeComponent/>
       <CircularButton />
       <ActionButtons />
+ 
     </ScrollView>
   );
 };
