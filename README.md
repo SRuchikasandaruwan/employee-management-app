@@ -29,7 +29,7 @@ Before running the project, ensure you have the following installed:
 ## 🔧 Installation & Setup
 
 ## 1️⃣ Clone the Repository
-git clone https://github.com/YOUR_GITHUB_USERNAME/employee-management-app.git
+git clone https://github.com/SRuchikasandaruwan/employee-management-app.git
 cd employee-management-app
 
 
