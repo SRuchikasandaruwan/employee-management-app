@@ -7,6 +7,13 @@ import ActionButtons from '..//..//components/ActionButtons';
 import ProfileStatusView from '..//..//components/ProfileStatus';
 import AppStatusBar from '../../components/StatusBar';
 import TimeComponent from '../../components/TimeComponent';
+<<<<<<< Updated upstream
+=======
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+
+
+>>>>>>> Stashed changes
 
 const HomeScreen: React.FC = () => {
   return (

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+
 
 const ProfileStatusView = () => {
   const [isOnline, setIsOnline] = useState(true); // State to toggle online/offline status
@@ -20,6 +22,7 @@ const ProfileStatusView = () => {
       {/* User Name and Online Status */}
       <View style={styles.textContainer}>
         <Text style={styles.userName}>Ruchika Sandaruwan</Text>
+       
         <TouchableOpacity style={styles.statusContainer} onPress={toggleStatus}>
           <FontAwesome
             name="circle"
@@ -32,6 +35,9 @@ const ProfileStatusView = () => {
           {/* <FontAwesome name="caret-down" size={12} color="#999" /> */}
         </TouchableOpacity>
       </View>
+      <TouchableOpacity>
+          <Ionicons name="notifications-outline" size={24} color="black" />
+        </TouchableOpacity>
     </View>
   );
 };

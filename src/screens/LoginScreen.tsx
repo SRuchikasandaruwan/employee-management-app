@@ -90,7 +90,7 @@ const LoginScreen: React.FC = () => {
       </View>
 
       {/* Progress Bar */}
-      <View style={styles.progressBar} />
+      {/* <View style={styles.progressBar} /> */}
     </View>
   );
 };
@@ -117,13 +117,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 15,
     padding: 20,
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    // elevation: 3,
+    // shadowColor: "#000",
+    // shadowOpacity: 0.1,
+    // shadowRadius: 10,
     alignItems: "center",
   },
   welcomeText: {
+    paddingTop: 130,
     fontSize: 18,
     fontWeight: "bold",
     color: "#3E43BB",
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#F0F0F5",
-    borderRadius: 10,
+    borderRadius: 25,
     paddingHorizontal: 10,
     width: "100%",
     marginBottom: 10,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
   registerContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 150,
   },
   registerText: {
     color: "#777",

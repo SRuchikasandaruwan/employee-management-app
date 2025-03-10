@@ -40,7 +40,7 @@ const WelcomeScreen: React.FC = () => {
         </View>
 
         {/* Progress Bar */}
-        <View style={styles.progressBar} />
+        {/* <View style={styles.progressBar} /> */}
       </LinearGradient>
     </View>
   );
@@ -68,14 +68,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",
     marginTop: 20,
   },
   description: {
-    fontSize: 14,
+    padding: 50,
+    fontSize: 18,
     color: "#ddd",
     textAlign: "center",
     marginVertical: 10,
@@ -83,9 +84,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#fff",
     paddingVertical: 12,
-    paddingHorizontal: 40,
+    paddingHorizontal: 100,
     borderRadius: 30,
-    marginTop: 20,
+    marginTop: 10,
   },
   buttonText: {
     color: "#3E43BB",

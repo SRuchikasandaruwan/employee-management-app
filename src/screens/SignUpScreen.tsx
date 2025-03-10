@@ -24,14 +24,14 @@ const SignUpScreen: React.FC = () => {
     <View style={styles.container}>
       {/* Back Button */}
       <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
+        // style={styles.backButton}
+        // onPress={() => navigation.goBack()}
       >
-        <Ionicons name="arrow-back" size={24} color="black" />
+        {/* <Ionicons name="arrow-back" size={24} color="black" /> */}
       </TouchableOpacity>
 
       {/* Title */}
-      <Text style={styles.title}>Sign Up</Text>
+      {/* <Text style={styles.title}>Sign Up</Text> */}
 
       {/* Sign Up Form */}
       <View style={styles.card}>
@@ -141,7 +141,7 @@ const SignUpScreen: React.FC = () => {
       </View>
 
       {/* Progress Bar */}
-      <View style={styles.progressBar} />
+      {/* <View style={styles.progressBar} /> */}
     </View>
   );
 };
@@ -165,26 +165,27 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 15,
+    // backgroundColor: "#fff",
+    borderRadius: 25,
     padding: 20,
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    // elevation: 3,
+    // shadowColor: "#000",
+    // shadowOpacity: 0.1,
+    // shadowRadius: 10,
     alignItems: "center",
+    paddingTop: 80,
   },
   welcomeText: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#3E43BB",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#F0F0F5",
-    borderRadius: 10,
+    borderRadius: 25,
     paddingHorizontal: 10,
     width: "100%",
     marginBottom: 10,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: "100%",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 40,
   },
   signUpButtonText: {
     color: "#fff",
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
   loginContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 80,
   },
   loginText: {
     color: "#777",

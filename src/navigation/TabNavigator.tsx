@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from '@expo/vector-icons/Feather';
 import HomeScreen from '../screens/User/HomeScreen';
 import SettingsScreen from '../screens/User/SettingsScreen';
-import NotificationsScreen from '../screens/User/NotificationsScreen';
+import NotificationsScreen from '../screens/User/MessengerScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import { StyleSheet, View, Text } from 'react-native';
 

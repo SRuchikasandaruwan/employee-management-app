@@ -46,7 +46,7 @@ const WelcomeScreen02: React.FC = () => {
         </View>
 
         {/* Progress Bar */}
-        <View style={styles.progressBar} />
+        {/* <View style={styles.progressBar} /> */}
       </LinearGradient>
     </View>
   );
@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   phoneButton: {
-    backgroundColor: "#4A5AEF",
+    backgroundColor: "#4245E4",
     paddingVertical: 12,
     width: "90%",
     borderRadius: 30,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 20,
   },
   phoneButtonText: {
     color: "#fff",
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   registerContainer: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 20,
   },
   registerText: {
     color: "#ddd",
